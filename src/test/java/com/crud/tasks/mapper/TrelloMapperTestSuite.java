@@ -15,12 +15,12 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MapperTestSuite {
+public class TrelloMapperTestSuite {
 
     @Autowired
     private TrelloMapper trelloMapper;
 
-    public List<TrelloList> createTrelloList() {
+    private List<TrelloList> createTrelloList() {
         List<TrelloList> trelloLists = new ArrayList<>();
         trelloLists.add(new TrelloList("231", "test1", true));
         trelloLists.add(new TrelloList("hgh654", "test2", false));
@@ -29,7 +29,7 @@ public class MapperTestSuite {
         return trelloLists;
     }
 
-    public List<TrelloListDto> createTrelloListDto() {
+    private List<TrelloListDto> createTrelloListDto() {
         List<TrelloListDto> trelloListDto = new ArrayList<>();
         trelloListDto.add(new TrelloListDto("3214", "test101", true));
         trelloListDto.add(new TrelloListDto("2/2", "test102", true));
