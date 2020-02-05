@@ -110,6 +110,6 @@ public class TaskControllerTest {
         //When&Then
         mockMvc.perform(delete("/v1/task/deleteTask?taskId=1")
                 .contentType(MediaType.APPLICATION_JSON));
-        verify(taskController).deleteTask(anyLong());
+        verify(taskController).deleteTask(1L);
     }
 }
