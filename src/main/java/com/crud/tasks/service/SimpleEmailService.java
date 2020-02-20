@@ -22,12 +22,12 @@ public class SimpleEmailService {
     @Autowired
     private MailCreatorService mailCreatorService;
 
-    public void send(final Mail mail) {
+    public void send(final Mail mail, String type) {
 
         LOGGER.info("Starting email preparation...");
 
         try {
-            javaMailSender.send(createMimeMessage(mail));
+            javaMailSender.send(createMimeMessage(mail, type));
 
             LOGGER.info("Email has been sent");
         }catch (MailException e){
@@ -35,12 +35,16 @@ public class SimpleEmailService {
         }
     }
 
-    private MimeMessagePreparator createMimeMessage (final Mail mail) {
+    private MimeMessagePreparator createMimeMessage (final Mail mail, String type) {
         return mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
-            messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
+            if (type.equals("Trello")) {
+                messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
+            } else if (type.equals("Scheduler")) {
+                messageHelper.setText(mailCreatorService.buildEmailScheduler(mail.getMessage()), true);
+            }
         };
     }
 
